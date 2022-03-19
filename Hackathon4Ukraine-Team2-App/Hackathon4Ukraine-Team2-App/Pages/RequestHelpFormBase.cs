@@ -1,6 +1,7 @@
 ﻿using Hackathon4Ukraine_Team2_App.DataAccess;
 using Hackathon4Ukraine_Team2_App.Domain;
 using Hackathon4Ukraine_Team2_App.Extensions;
+using Hackathon4Ukraine_Team2_App.Helpers;
 using Hackathon4Ukraine_Team2_App.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,6 @@ public class RequestHelpFormBase : ComponentBase
 
         // Process the valid form
         await RequestHelpService.SaveRequest(Model);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo( NavigationHelper.ViewRequestHelp(Model.Id));
     }
 }
