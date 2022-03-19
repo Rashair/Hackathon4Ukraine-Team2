@@ -36,16 +36,6 @@ public static class ServicesLoader
                    cosmosSettings.DbName);
            });
 
-
-        services.AddScoped((IServiceProvider sp) =>
-        {
-            var cosmosSettings = sp
-                 .GetRequiredService<IOptions<CosmosSettings>>()
-                 .Value;
-            return new CosmosClient(cosmosSettings.ConnectionString);
-        });
-        services.AddScoped<DbInitializer>();
-
         services.AddScoped<IRequestHelpService, RequestHelpService>();
     }
 }

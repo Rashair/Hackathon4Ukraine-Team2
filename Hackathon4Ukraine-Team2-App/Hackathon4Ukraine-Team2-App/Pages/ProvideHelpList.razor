@@ -1,27 +1,34 @@
 ﻿@page "/ProvideHelpList"
 @using Hackathon4Ukraine_Team2_App.Domain
+@using Hackathon4Ukraine_Team2_App.DataAccess
 @using System.Collections.Generic
+@using Microsoft.EntityFrameworkCore
+
+@inject AppDbContext DbContext
 
 <h3>ProvideHelp</h3>
+<ul class="list-group">
+    @foreach (var req in _requests)
+    {
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@req.Name</h5>
+                <small>3 days ago</small>
+            </div>
+            <p class="mb-1">@req.Description</p>
+            <small>@req.Category</small>
+        </a>
+    }
+</ul>
 
-@code {
+
+
+
+        @code {
     private List<RequestHelp> _requests = new();
 
-    protected override void OnInitialized()
-    {
-        _requests.Add(new RequestHelp
+        protected override async Task OnInitializedAsync()
         {
-            Name = "name1",
-            Category = "cat1",
-            Description = "blabla"
-        });
-
-         _requests.Add(new RequestHelp
-        {
-            Name = "name2",
-            Category = "cat2",
-            Description = "blabladd"
-        });
+    _requests = await DbContext.RequestHelps.ToListAsync();
+        }
     }
-    
-}

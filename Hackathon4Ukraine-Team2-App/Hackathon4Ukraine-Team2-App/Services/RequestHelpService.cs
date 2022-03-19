@@ -1,6 +1,5 @@
 ﻿using Hackathon4Ukraine_Team2_App.DataAccess;
 using Hackathon4Ukraine_Team2_App.Services.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Hackathon4Ukraine_Team2_App.Domain
 {
