@@ -1,12 +1,16 @@
-﻿using Hackathon4Ukraine_Team2_App.Domain;
+﻿using Hackathon4Ukraine_Team2_App.DataAccess;
+using Hackathon4Ukraine_Team2_App.Domain;
 using Hackathon4Ukraine_Team2_App.Extensions;
 using Hackathon4Ukraine_Team2_App.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hackathon4Ukraine_Team2_App.Pages;
 
 public class RequestHelpFormBase : ComponentBase
 {
+    [Inject]
+    private AppDbContext DbContext { get; set; }
     [Inject]
     private IRequestHelpService RequestHelpService { get; set; }
     [Inject]
@@ -15,6 +19,13 @@ public class RequestHelpFormBase : ComponentBase
     protected NavigationManager NavigationManager { get; set; }
 
     protected RequestHelp Model { get; } = new();
+    protected List<Category> Categories { get; private set; } = new List<Category>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await DbContext.Categories.ToListAsync();
+        await base.OnInitializedAsync();
+    }
 
     protected async Task HandleValidSubmit()
     {
@@ -28,13 +39,4 @@ public class RequestHelpFormBase : ComponentBase
         await RequestHelpService.SaveRequest(Model);
         NavigationManager.NavigateTo("/");
     }
-
-    protected static List<string> Categories { get; } = new()
-    {
-        "Aid",
-        "Accommodation",
-        "Transport",
-        "Health Care",
-        "Other"
-    };
 }

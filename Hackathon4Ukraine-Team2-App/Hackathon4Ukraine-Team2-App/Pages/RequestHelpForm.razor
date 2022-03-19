@@ -30,7 +30,7 @@
     <InputSelect class="form-control" id="category" @bind-Value="Model.Category">
         @foreach (var cat in Categories)
         {
-            <option value="@cat">@cat</option>
+            <option value="@cat.Name">@cat.Name</option>
         }
     </InputSelect>
 </div>
@@ -50,4 +50,3 @@
   </div>
 
 </EditForm>
-

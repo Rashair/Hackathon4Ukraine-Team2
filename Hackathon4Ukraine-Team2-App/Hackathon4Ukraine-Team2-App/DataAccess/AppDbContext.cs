@@ -14,6 +14,8 @@ namespace Hackathon4Ukraine_Team2_App.DataAccess
 
         public DbSet<RequestHelp> RequestHelps { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
         /// <summary>
         /// Configure the model that maps the domain to the backend.
         /// </summary>
@@ -24,6 +26,13 @@ namespace Hackathon4Ukraine_Team2_App.DataAccess
                 .ToContainer(nameof(RequestHelps))
                 .HasNoDiscriminator()
                 .HasPartitionKey(da => da.Id)
+                .HasKey(da => da.Id);
+
+            modelBuilder.Entity<Category>()
+                .HasNoDiscriminator()
+                .ToContainer(nameof(Categories))
+                .HasNoDiscriminator()
+                .HasPartitionKey(da => da.Name)
                 .HasKey(da => da.Id);
 
             base.OnModelCreating(modelBuilder);

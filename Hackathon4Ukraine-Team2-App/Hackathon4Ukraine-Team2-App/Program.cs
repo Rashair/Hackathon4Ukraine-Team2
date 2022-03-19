@@ -19,9 +19,7 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    using var scope = app.Services.CreateScope();
-    var dbcontext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbcontext.Database.EnsureCreated();
+    await app.InitDatabase();
 }
 
 app.UseHttpsRedirection();
