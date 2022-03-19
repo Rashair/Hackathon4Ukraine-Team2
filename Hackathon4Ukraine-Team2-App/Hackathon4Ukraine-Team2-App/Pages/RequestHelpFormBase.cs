@@ -11,18 +11,30 @@ public class RequestHelpFormBase : ComponentBase
     private IRequestHelpService RequestHelpService { get; set; }
     [Inject]
     private ILogger<RequestHelpForm> Logger { get; set; }
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; }
 
-    protected RequestHelp model = new();
+    protected RequestHelp Model { get; } = new();
 
     protected async Task HandleValidSubmit()
     {
-        Logger.LogInformation("HandleValidSubmit called with + " + model.Name);
-        if (model.Name.IsNullOrEmpty())
+        Logger.LogInformation("HandleValidSubmit called with + " + Model.Name);
+        if (Model.Name.IsNullOrEmpty())
         {
             throw new InvalidOperationException("Name is required");
         }
 
         // Process the valid form
-        await RequestHelpService.SaveRequest(model);
+        await RequestHelpService.SaveRequest(Model);
+        NavigationManager.NavigateTo("/");
     }
+
+    protected static List<string> Categories { get; } = new()
+    {
+        "Aid",
+        "Accommodation",
+        "Transport",
+        "Health Care",
+        "Other"
+    };
 }

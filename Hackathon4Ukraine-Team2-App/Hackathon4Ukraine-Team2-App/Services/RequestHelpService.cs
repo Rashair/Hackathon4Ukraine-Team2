@@ -1,5 +1,6 @@
 ﻿using Hackathon4Ukraine_Team2_App.DataAccess;
 using Hackathon4Ukraine_Team2_App.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hackathon4Ukraine_Team2_App.Domain
 {
@@ -20,6 +21,11 @@ namespace Hackathon4Ukraine_Team2_App.Domain
             {
                 _dbContext.RequestHelps.Add(model);
                 await _dbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (ex.Message.Contains("Conflicts were detected"))
+            {
+                model.Id = Guid.NewGuid();
+                await SaveRequest(model);
             }
             catch (Exception ex)
             {

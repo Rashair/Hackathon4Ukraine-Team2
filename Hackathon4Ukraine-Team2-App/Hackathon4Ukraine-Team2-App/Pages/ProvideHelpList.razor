@@ -6,29 +6,37 @@
 
 @inject AppDbContext DbContext
 
-<h3>ProvideHelp</h3>
-<ul class="list-group">
+<h3 class="mb-4">Provide help</h3>
+
+<table class="table table-hover">
+<thead class="table-light">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Description</th>
+    </tr>
+</thead>
+<tbody>
+    @{int i = 0;}
     @foreach (var req in _requests)
     {
-        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">@req.Name</h5>
-                <small>3 days ago</small>
-            </div>
-            <p class="mb-1">@req.Description</p>
-            <small>@req.Category</small>
-        </a>
+    <tr>
+        <th scope="row">@(++i)</th>
+        <td>@req.Name</td>
+        <td>@req.Category</td>
+        <td>@req.Description</td>
+    </tr>
     }
-</ul>
+</tbody>
+</table>
 
 
-
-
-        @code {
+@code {
     private List<RequestHelp> _requests = new();
 
-        protected override async Task OnInitializedAsync()
-        {
-    _requests = await DbContext.RequestHelps.ToListAsync();
-        }
+    protected override async Task OnInitializedAsync()
+    {
+        _requests = await DbContext.RequestHelps.ToListAsync();
     }
+}

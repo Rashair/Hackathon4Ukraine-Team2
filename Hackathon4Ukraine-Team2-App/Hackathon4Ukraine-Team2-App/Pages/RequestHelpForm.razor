@@ -1,9 +1,9 @@
 ﻿@page "/RequestHelpForm"
 @inherits RequestHelpFormBase
 
-<h3>Request Help</h3>
+<h3 class="mb-3">Request help</h3>
 
-<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+<EditForm Model="@Model" OnValidSubmit="@HandleValidSubmit">
   <!-- Name input -->
    <DataAnnotationsValidator />
    <ValidationSummary />
@@ -12,50 +12,42 @@
 	<label class="form-label" for="Name">Name</label>
   </div>
   <div class="form-outline mb-4">    
-    <InputText type="text" id="Name" class="form-control" @bind-Value="model.Name"  />
+    <InputText type="text" id="Name" class="form-control" @bind-Value="Model.Name"  />
   </div>
-  <br>
 
   <!-- Email input -->
   <div>
 	<label class="form-label" for="email">Email address</label>
   </div>
   <div class="form-outline mb-4">
-	<InputText type="email" id="email" class="form-control" @bind-Value="model.Email" />
+	<InputText type="email" id="email" class="form-control" @bind-Value="Model.Email" />
   </div>
-  <br>
 
   <div>
-	<label class="form-label" for="form4Example2">Category</label>
+	<label class="form-label" for="category">Category</label>
   </div>
-<!--  <div class="form-outline mb-4">
-	<input type="email" id="form4Example2" class="form-control" />
-  </div>-->
- <div class="dropdown">
-  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-    Category
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Aid</a></li>
-    <li><a class="dropdown-item" href="#">Accommodation</a></li>
-    <li><a class="dropdown-item" href="#">Transport</a></li>
-    <li><a class="dropdown-item" href="#">Health Care</a></li>
-    <li><a class="dropdown-item" href="#">Other</a></li>
-  </ul>
-</div> 
-  <br>
-
-  <!-- Description -->
+ <div class="form-outline mb-4">
+    <InputSelect class="form-control" id="category" @bind-Value="Model.Category">
+        @foreach (var cat in Categories)
+        {
+            <option value="@cat">@cat</option>
+        }
+    </InputSelect>
+</div>
+  
+<!-- Description -->
   <div>
 	<label class="form-label" for="Description">Description</label>
   </div>
   <div class="form-outline mb-4">   
-    <InputTextArea class="form-control" id="Description" rows="4" @bind-Value="model.Description"></InputTextArea>
+    <InputTextArea class="form-control" id="Description" rows="4" @bind-Value="Model.Description"></InputTextArea>
   </div>
-  <br>
 
   <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
-  <button type="cancel" class="btn btn-secondary btn-block mb-4">Cancel</button>
+  <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-4">Send</button>
+      <button type="button" class="btn btn-info mb-4" @onclick=@(() => NavigationManager.NavigateTo("/"))>Back</button>
+  </div>
+
 </EditForm>
 
