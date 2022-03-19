@@ -1,7 +1,27 @@
 ﻿@page "/ProvideHelpList"
+@using Hackathon4Ukraine_Team2_App.Domain
+@using System.Collections.Generic
 
 <h3>ProvideHelp</h3>
 
 @code {
+    private List<RequestHelp> _requests = new();
 
+    protected override void OnInitialized()
+    {
+        _requests.Add(new RequestHelp
+        {
+            Name = "name1",
+            Category = "cat1",
+            Description = "blabla"
+        });
+
+         _requests.Add(new RequestHelp
+        {
+            Name = "name2",
+            Category = "cat2",
+            Description = "blabladd"
+        });
+    }
+    
 }
