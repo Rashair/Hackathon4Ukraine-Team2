@@ -4,6 +4,9 @@ using Microsoft.Extensions.Options;
 using System.Configuration;
 using Hackathon4Ukraine_Team2_App.DataAccess;
 using Hackathon4Ukraine_Team2_App.Domain;
+using Hackathon4Ukraine_Team2_App.Services.Interfaces;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hackathon4Ukraine_Team2_App;
 
@@ -20,6 +23,7 @@ public static class ServicesLoader
 
         services.Configure<CosmosSettings>(
                configuration.GetSection(nameof(CosmosSettings)));
+
         services.AddDbContextFactory<AppDbContext>(
            (IServiceProvider sp, DbContextOptionsBuilder opts) =>
            {
@@ -28,12 +32,21 @@ public static class ServicesLoader
                    .Value;
 
                opts.UseCosmos(
-                   cosmosSettings.Endpoint,
-                   cosmosSettings.AccessKey,
-                   nameof(AppDbContext));
+                   cosmosSettings.ConnectionString,
+                   cosmosSettings.DbName);
            });
 
-        services.AddSingleton<IRequestHelpService, RequestHelpService>();
+
+        services.AddScoped((IServiceProvider sp) =>
+        {
+            var cosmosSettings = sp
+                 .GetRequiredService<IOptions<CosmosSettings>>()
+                 .Value;
+            return new CosmosClient(cosmosSettings.ConnectionString);
+        });
+        services.AddScoped<DbInitializer>();
+
+        services.AddScoped<IRequestHelpService, RequestHelpService>();
     }
 }
 

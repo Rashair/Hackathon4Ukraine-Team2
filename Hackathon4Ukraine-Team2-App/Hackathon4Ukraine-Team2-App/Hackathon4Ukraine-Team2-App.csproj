@@ -12,8 +12,4 @@
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.26.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="6.0.3" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
 </Project>

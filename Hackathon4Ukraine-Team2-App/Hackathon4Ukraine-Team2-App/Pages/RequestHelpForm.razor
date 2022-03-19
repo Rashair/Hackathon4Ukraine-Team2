@@ -1,23 +1,27 @@
 ﻿@page "/RequestHelpForm"
+@inherits RequestHelpFormBase
 
+<h3>Request Help</h3>
 
-<h3>Request</h3>
-<form>
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
   <!-- Name input -->
+   <DataAnnotationsValidator />
+   <ValidationSummary />
+
   <div>
-	<label class="form-label" for="form4Example1">Name</label>
+	<label class="form-label" for="Name">Name</label>
   </div>
   <div class="form-outline mb-4">    
-    <input type="text" id="form4Example1" class="form-control" />
+    <InputText type="text" id="Name" class="form-control" @bind-Value="model.Name"  />
   </div>
   <br>
 
   <!-- Email input -->
   <div>
-	<label class="form-label" for="form4Example2">Email address</label>
+	<label class="form-label" for="email">Email address</label>
   </div>
   <div class="form-outline mb-4">
-	<input type="email" id="form4Example2" class="form-control" />
+	<InputText type="email" id="email" class="form-control" @bind-Value="model.Email" />
   </div>
   <br>
 
@@ -43,19 +47,15 @@
 
   <!-- Description -->
   <div>
-	<label class="form-label" for="form4Example3">Description</label>
+	<label class="form-label" for="Description">Description</label>
   </div>
   <div class="form-outline mb-4">   
-    <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+    <InputTextArea class="form-control" id="Description" rows="4" @bind-Value="model.Description"></InputTextArea>
   </div>
   <br>
 
   <!-- Submit button -->
   <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
-  
-  <button type="cancel" class="btn btn-primary btn-block mb-4">Cancel</button>
-</form>
+  <button type="cancel" class="btn btn-secondary btn-block mb-4">Cancel</button>
+</EditForm>
 
-@code {
-
-}
