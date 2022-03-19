@@ -1,16 +1,25 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Index</PageTitle>
 
 <div class="row" style="height: 92vh">
     <div class="col">
-        <button class="w-100 h-100 btn btn-primary main-btn">
-            Ask for help
+        <button class="w-100 h-100 btn btn-primary" @onclick="NavigateToRequestPage">
+            <div class="main-btn">Ask for help</div>
+            <div>Are you an Ukrainian refugee?</div>
         </button>
     </div>
     <div class="col">
-        <button class="w-100 h-100 btn btn-success main-btn">
-            Provide help
+        <button class="w-100 h-100 btn btn-success">
+            <div class="main-btn">Provide help</div>
+            <div>Do you want to help Ukrainian people?</div>
         </button>
     </div>
 </div>
+
+@code{
+    private void NavigateToRequestPage() {
+        NavigationManager.NavigateTo(nameof(RequestPage));
+    }
+}
