@@ -6,5 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Hackathon4Ukraine_Team2_App</RootNamespace>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
+  </PropertyGroup>
 
 </Project>
