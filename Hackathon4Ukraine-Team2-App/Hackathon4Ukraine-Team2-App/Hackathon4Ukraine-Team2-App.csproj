@@ -7,9 +7,4 @@
     <RootNamespace>Hackathon4Ukraine_Team2_App</RootNamespace>
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
-  
-  <PropertyGroup>
-    <UseRazorSourceGenerator>false</UseRazorSourceGenerator>
-  </PropertyGroup>
-
 </Project>
